@@ -1,0 +1,19 @@
+version: '2.1'
+
+services:
+
+  controllers_app:
+    build:
+      context: ./controller_app/
+      dockerfile: ../docker/controller/Dockerfile
+    container_name: controllers_app
+    ports:
+      - '8080:8080'
+    volumes:
+      - ./controller_app:/controller_app
+      - ./controller_app/logs:/var/log
+    command: >
+      sh -c "python main.py"
+
+    environment:
+      - LOGLEVEL = INFO
