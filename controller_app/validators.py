@@ -14,6 +14,7 @@ schema_names = SCHEMA_NAMES(
 
 schemas = {
     'sensor_data_schema': {
+        'id': {'required': True, 'type': 'string'},
         'payload': {'required': True, 'type': 'integer'},
         'datetime': {
             'isdatetime': True, 'type': 'string', 'required': True, 'nullable': False

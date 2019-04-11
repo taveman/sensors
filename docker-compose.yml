@@ -14,6 +14,25 @@ services:
       - ./controller_app/logs:/var/log
     command: >
       sh -c "python main.py"
-
     environment:
-      - LOGLEVEL = INFO
+      - DEBUG=0
+      - MANIPULATOR_HOST=manipulator_app
+      - MANIPULATOR_PORT=4000
+      - THRESHOLD_VALUE=5
+      - THRESHOLD_SENSORS=4
+
+  sensor_app:
+    build:
+      context: ./sensor_app/
+      dockerfile: ../docker/sensor/Dockerfile
+#    container_name: sensor_app
+    volumes:
+      - ./sensor_app:/sensor_app
+      - ./sensor_app/logs:/var/log/sensor
+    command: >
+      sh -c "python main.py"
+    environment:
+      - CONTROLLER_HOST=controllers_app
+      - CONTROLLER_PORT=8080
+    depends_on:
+      - controllers_app

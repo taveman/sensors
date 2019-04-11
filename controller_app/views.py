@@ -2,6 +2,7 @@ import logging
 from aiohttp import web
 
 from validators import RequestValidator, schema_names
+from config import controller_state, SENSOR_STATUS_KEEPER
 
 
 async def receive_sensor_data(request):
@@ -12,6 +13,7 @@ async def receive_sensor_data(request):
     :return: aiohttp response object
     :rtype web.Response
     """
+    global SENSOR_STATUS_KEEPER
     logger = logging.getLogger('controller')
 
     try:
@@ -31,6 +33,8 @@ async def receive_sensor_data(request):
 
     data = validation_result.get('document')
 
+    SENSOR_STATUS_KEEPER[data['id']] = data['payload']
+
     logger.info('receive_sensor_data received data: {}'.format(data))
     return web.json_response({'status': 'success'}, status=200)
 
@@ -44,4 +48,5 @@ async def get_manipulator_status(request):
     :rtype web.Response
     """
     logger = logging.getLogger('controller')
-    return web.json_response({'status': 'success'}, status=200)
+    logger.debug('Sending current state to the web server:\n{}'.format(controller_state.to_dict()))
+    return web.json_response(controller_state.to_dict(), status=200)

@@ -1,9 +1,8 @@
-import os
 import logging
 from logging.handlers import TimedRotatingFileHandler
 
 
-def init_logger(logger_name, info_logger_path, debug_logger_path='/var/log/controller_debug.log', debug=False):
+def init_logger(logger_name, info_logger_path, debug_logger_path, debug=False):
     """
     Logger initializer
     :param logger_name: logger name to be used
@@ -26,7 +25,7 @@ def init_logger(logger_name, info_logger_path, debug_logger_path='/var/log/contr
     stream_h.setFormatter(formatter)
     stream_h.setLevel(logging.INFO)
 
-    if debug:
+    if debug and debug_logger_path:
         file_h_debug = TimedRotatingFileHandler(debug_logger_path, when='D', interval=1, backupCount=50)
         file_h_debug.setLevel(logging.DEBUG)
         file_h_debug.setFormatter(formatter)
@@ -40,20 +39,3 @@ def init_logger(logger_name, info_logger_path, debug_logger_path='/var/log/contr
     logger.setLevel(logging.DEBUG) if debug else logger.setLevel(logging.INFO)
 
     return logger
-
-
-def env_variable_to_int(name):
-    """
-    Environment variable conversion to an integer
-    :param name: environment variable
-    :return: converted env variable to an integer or 0
-    :rtype: int
-    """
-    env_var = os.environ.get(name)
-    if not env_var:
-        return 0
-
-    try:
-        return int(env_var)
-    except ValueError:
-        return 0
