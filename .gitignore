@@ -168,3 +168,7 @@ fabric.properties
 
 /controller_app/logs/
 /sensor_app/logs/
+!/controller_app/logs/
+!/manipulator_app/logs/
+!/sensor_app/logs/
+!/web_app/logs/
