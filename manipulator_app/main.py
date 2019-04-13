@@ -12,6 +12,7 @@ if __name__ == '__main__':
         'manipulator',
         '/var/log/manipulator/info.log',
         '/var/log/manipulator/debug.log',
+        '/var/log/manipulator/error.log',
         DEBUG_LOG
     )
 

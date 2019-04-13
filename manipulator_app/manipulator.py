@@ -40,6 +40,7 @@ class Manipulator:
 
         m_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         m_socket.listen()
+        self.logger.debug('{}: listening...'.format(self.__class__.__name__))
         while m_socket:
             remote_socket, addr = m_socket.accept()
             self.logger.debug('{}: got connection from {}'.format(self.__class__.__name__, addr))

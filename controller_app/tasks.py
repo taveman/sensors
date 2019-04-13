@@ -48,11 +48,12 @@ async def run_manipulator(status_keeper, threshold_value, threshold_sensors, con
                 )
             )
 
-        manipulator.send_data({'status': contr_state.status, 'datetime': datetime.now().strftime('%Y%m%dT%H%M')})
+            manipulator.send_data({'status': contr_state.status, 'datetime': datetime.now().strftime('%Y%m%dT%H%M')})
 
 
 async def start_background_tasks(app):
-    manipulator = ManipulatorConnector(host=MANIPULATOR_HOST, port=MANIPULATOR_PORT)
+    logger = logging.getLogger('controller')
+    manipulator = ManipulatorConnector(host=MANIPULATOR_HOST, port=MANIPULATOR_PORT, logger=logger)
     app['manipulator_send_status'] = app.loop.create_task(
         run_manipulator(SENSOR_STATUS_KEEPER, THRESHOLD_VALUE, THRESHOLD_SENSORS, controller_state, manipulator)
     )

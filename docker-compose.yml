@@ -20,6 +20,8 @@ services:
       - MANIPULATOR_PORT=4000
       - THRESHOLD_VALUE=5
       - THRESHOLD_SENSORS=4
+    depends_on:
+      - manipulator_app
 
   sensor_app:
     build:

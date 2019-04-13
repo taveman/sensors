@@ -6,12 +6,13 @@ from random import randint
 import asyncio
 import aiohttp
 
-from tools import init_logger
+from tools import init_logger, env_variable_to_int
 
 TIMES_IN_SECONDS = 500
 TIME_TO_SLEEP = 1 / TIMES_IN_SECONDS
 CONTROLLER_HOST = os.environ.get('CONTROLLER_HOST', 'localhost')
-CONTROLLER_PORT = os.environ.get('CONTROLLER_PORT', '8080')
+CONTROLLER_PORT = env_variable_to_int('CONTROLLER_PORT')
+DEBUG_LOG = True if env_variable_to_int('DEBUG') else False
 
 
 async def send_data():
@@ -29,7 +30,8 @@ async def send_data():
         'sensor',
         '/var/log/sensor/sensor_{}.log'.format(controller_id),
         '/var/log/sensor/sensor_debug_{}.log'.format(controller_id),
-        debug=True
+        '/var/log/sensor/sensor_error_{}.log'.format(controller_id),
+        debug=DEBUG_LOG
     )
     async with aiohttp.ClientSession() as session:
         while True:
