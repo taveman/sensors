@@ -8,3 +8,6 @@ That would run 11 containers: 8 - sensors, 1 - controller, 1 - manipulator, 1 - 
 
 Applications logs could be found in the corresponding folders. Logs destination directory can be changed in the 
 docker-compose.yml file
+
+After the application start, you can go to the http://localhost:5000/ and see the controller status 
+pressing refresh button
