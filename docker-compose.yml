@@ -32,7 +32,24 @@ services:
     command: >
       sh -c "python main.py"
     environment:
+      - DEBUG=0
       - CONTROLLER_HOST=controllers_app
       - CONTROLLER_PORT=8080
     depends_on:
       - controllers_app
+
+  manipulator_app:
+    build:
+      context: ./manipulator_app/
+      dockerfile: ../docker/manipulator/Dockerfile
+    container_name: manipulator_app
+    volumes:
+      - ./manipulator_app:/manipulator_app
+      - ./manipulator_app/logs:/var/log/manipulator
+    command: >
+      sh -c "python main.py"
+    environment:
+      - MANIPULATOR_PORT=4000
+      - MANIPULATOR_HOST=0.0.0.0
+      - DEBUG=0
+

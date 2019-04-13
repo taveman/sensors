@@ -5,10 +5,10 @@ import logging
 from datetime import datetime
 import asyncio
 
-from controller_app.connectors import ManipulatorConnector
-from controller_app.config import controller_state
-from controller_app.structures import ControllerStatus
-from controller_app.config import SENSOR_STATUS_KEEPER, MANIPULATOR_PORT, MANIPULATOR_HOST,\
+from connectors import ManipulatorConnector
+from config import controller_state
+from structures import ControllerStatus
+from config import SENSOR_STATUS_KEEPER, MANIPULATOR_PORT, MANIPULATOR_HOST,\
     THRESHOLD_VALUE, THRESHOLD_SENSORS
 
 

@@ -1,7 +1,7 @@
 import os
 import logging
-from controller_app.structures import ControllerStatus
-from controller_app.tools import env_variable_to_int
+from structures import ControllerStatus
+from tools import env_variable_to_int
 
 
 logger = logging.getLogger('controller')

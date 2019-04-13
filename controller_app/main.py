@@ -1,8 +1,8 @@
 from aiohttp import web
-from controller_app.routes import setup_routes
-from controller_app.tools import init_logger, env_variable_to_int
+from routes import setup_routes
+from tools import init_logger, env_variable_to_int
 
-from controller_app.tasks import start_background_tasks, cleanup_background_tasks
+from tasks import start_background_tasks, cleanup_background_tasks
 
 
 DEBUG_LOG = True if env_variable_to_int('DEBUG') else False
