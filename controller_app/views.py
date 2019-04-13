@@ -49,4 +49,5 @@ async def get_manipulator_status(request):
     """
     logger = logging.getLogger('controller')
     logger.debug('Sending current state to the web server:\n{}'.format(controller_state.to_dict()))
-    return web.json_response(controller_state.to_dict(), status=200)
+    headers = {'Access-Control-Allow-Origin': '*'}
+    return web.json_response(controller_state.to_dict(), headers=headers, status=200)

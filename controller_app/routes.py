@@ -9,4 +9,4 @@ def setup_routes(app):
     :type app: Application
     """
     app.router.add_post('/api/sensor', receive_sensor_data)
-    app.router.add_get('/api/manipulator/status', get_manipulator_status)
+    app.router.add_get('/api/controller/status', get_manipulator_status)

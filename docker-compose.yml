@@ -55,3 +55,17 @@ services:
       - MANIPULATOR_HOST=0.0.0.0
       - DEBUG=0
 
+  web_app:
+    build:
+      context: ./web_app/
+      dockerfile: ../docker/web_server/Dockerfile
+    container_name: web_app
+    ports:
+      - '5000:5000'
+    volumes:
+      - ./web_app:/web_app
+      - ./web_app/logs:/var/log/web
+    command: >
+      sh -c "export FLASK_APP=main:app && flask run --host=0.0.0.0"
+    depends_on:
+      - controllers_app
