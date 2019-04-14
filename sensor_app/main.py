@@ -58,7 +58,7 @@ async def send_data(loop):
         count += 1
         await asyncio.sleep(TIME_TO_SLEEP)
         if count > 100:
-            logger.info('Time passed: {} Count: {}'.format(time() - time_now, count))
+            logger.debug('Time passed: {} Count: {}'.format(time() - time_now, count))
             time_now = time()
             count = 0
 
