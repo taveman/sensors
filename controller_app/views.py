@@ -15,13 +15,12 @@ async def receive_sensor_data(request):
     """
     global SENSOR_STATUS_KEEPER
     logger = logging.getLogger('controller')
-
     try:
         data = await request.json()
 
     except web.RequestPayloadError as e:
         logger.error('Request has invalid or no json data:\n{}'.format(e))
-        return web.json_response({'status': 'error'}, status=400)
+        return web.Response()
 
     validation_result = RequestValidator.data_validator(data, validation_schema=schema_names.sensor_data)
 
@@ -29,14 +28,14 @@ async def receive_sensor_data(request):
         logger.error('Received data from sensors validation error: {}\nDATA: {}'.format(
             validation_result.get('errors'), data)
         )
-        return web.json_response({'status': 'error', 'details': validation_result.get('errors')}, status=400)
+        return web.Response()
 
     data = validation_result.get('document')
 
     SENSOR_STATUS_KEEPER[data['id']] = data['payload']
 
-    logger.info('receive_sensor_data received data: {}'.format(data))
-    return web.json_response({'status': 'success'}, status=200)
+    logger.debug('receive_sensor_data received data: {}'.format(data))
+    return web.Response()
 
 
 async def get_manipulator_status(request):

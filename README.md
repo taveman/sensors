@@ -10,4 +10,6 @@ Applications logs could be found in the corresponding folders. Logs destination 
 docker-compose.yml file
 
 After the application start, you can go to the http://localhost:5000/ and see the controller status 
-pressing refresh button
+pressing refresh button. Ajax request from the page goes to the controller application over HTTPS protocol.
+
+Just because there is self-signed ssl certificate is in use - you have to add it as an exception in you browser.

@@ -1,4 +1,5 @@
 import os
+import json
 import logging
 from logging.handlers import TimedRotatingFileHandler
 
@@ -70,3 +71,23 @@ def env_variable_to_int(name):
     except ValueError:
         return 0
 
+
+def craft_json_http(message, host, url):
+    """
+    Crafts the http message
+    :param message: data to be sent
+    :type message: dict
+    :param host: host to be sent to
+    :type host: str
+    :param url: url to be sent to
+    :type url: str
+    :return: encoded message ready to be sent
+    :rtype: bytes
+    """
+    message = json.dumps(message)
+    message = 'POST {url} HTTP/1.1' \
+              '\r\nHost: {host}' \
+              '\r\nContent-type: application/json' \
+              '\r\nContent-Length: {length}' \
+              '\r\n\r\n{message}'.format(url=url, host=host, length=len(message.encode()), message=message)
+    return message.encode()
